@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Array exercise</title>
+    </head>
+    <body>
+        <script>
+
+            const inventors = [
+                { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+                { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+                { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+                { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+                { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+                { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+                { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+                { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+                { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+                { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+                { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+                { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+            ];
+
+            const people = [
+                'Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick',
+                'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul',
+                'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony',
+                'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 
+                'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 
+                'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 
+                'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 
+                'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 
+                'Blair, Tony', 'Blake, William'
+            ];
+
+            const newPeople = [
+                { name: 'Wes', year: 1988 },
+                { name: 'Kait', year: 1986 },
+                { name: 'Irv', year: 1970 },
+                { name: 'Lux', year: 2015 }
+            ];
+
+            const comments = [
+                { text: 'Love this!', id: 523423 },
+                { text: 'Super good', id: 823423 },
+                { text: 'You are the best', id: 2039842 },
+                { text: 'Ramen is my fav food ever', id: 123523 },
+                { text: 'Nice Nice Nice!', id: 542328 }
+            ];
+
+            //1.Filter the list of investors for those who were born in the 1500's
+            const born = inventors.filter(yr => yr.year > 1499 && yr.year < 1600);
+            console.log(born);
+
+            //2. Give us an array of the inventor first and last names
+            const name = inventors.map(fullName => `${fullName.first} ${fullName.last}` );
+            console.log(name);
+            //console.log(inventors.length);
+
+            //3. Sort the inventors by birthdate, oldest to youngest
+            const youngest = inventors.sort((a,b)=> (a.year > b.year ? 1 : -1));
+            console.log(youngest);
+           
+            //Sorting youngest to oldest
+            const age = inventors.sort((a,b) => (b.year > a.year ? 1 : -1));
+            console.log(age);
+
+            // 4. How many years did all the inventors live?
+            const totalLived = inventors.reduce((total, birthday) => total + (birthday.passed - birthday.year),0);
+            console.log(totalLived);
+
+            // 5. Sort the inventors by years lived
+            const yearsLived = inventors.sort((a,b) => ((a.passed-a.year) < (b.passed-b.year) ? 1 : -1 ));
+            console.log(yearsLived);
+
+            //6. Sort Exercise
+            // Sort the people alphabetically by last name
+
+            const lastName = people.sort((a,b) => {
+                const [aLast, aFirst] = a.split(", ");
+                const[bLast, bFirst] = b.split(", ");
+                
+                const [last, first] = [aFirst, aLast];
+                const [secLast, secFirst] = [bFirst, bLast];
+                
+                return ([last,first] > [secLast, secFirst] ? 1 : -1)
+                });
+
+                console.log(lastName);
+
+            // 7. Reduce Exercise
+            // Sum up the instances of each of these
+            const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 
+            'car', 'truck', 'pogostick'];
+
+            const sum = data.reduce((total, obj) => {
+                if(!total[obj]){
+                    total[obj] = 0;
+                };
+
+                total[obj]++;
+                return total
+            }, {});
+
+            console.log(sum);
+
+            //8. Some exercise
+            //Is at least one person 19?
+            const date = new Date();
+            const currentYear = date.getFullYear();
+            //console.log(currentYear);
+            const nineteen = newPeople.some(person => (currentYear - person.year) >= 19);
+            console.log(nineteen);
+
+            //9. Every exercise
+            //Is everyone 19?
+            const everyNineteen = newPeople.every(person =>(currentYear - person.year) >= 19 );
+            console.log(everyNineteen);
+            
+            //10. Find the comment with the ID of 823423
+            const search = comments.find(e => e.id === 823423 );
+            console.log(search);
+
+            //11. Find and delete the comment with the ID of 823423
+            //comments.splice(search, 2);
+            const newComments = comments;
+            
+            const newSearch = newComments.findIndex(e => e.id === 823423);
+            newComments.splice(newSearch, 1);
+            console.log(newComments);
+            
+        </script>
+    </body>
+</html>
